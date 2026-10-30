@@ -147,4 +147,6 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SECURE_HSTS_SECONDS = 3600
 
-
+# Ficheros subidos por los usuarios (documentos técnicos)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

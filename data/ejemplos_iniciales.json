@@ -1,0 +1,157 @@
+[
+  {
+    "maquina": {
+      "nombre": "Elevador vertical 01",
+      "marca": "SSI Schaefer",
+      "modelo": "EV-500",
+      "codigo": "ELV-SSI-001",
+      "categoria": "ROB",
+      "ubicacion": "Zona de almacenaje automático",
+      "manual_url": "",
+      "descripcion": "Elevador vertical de enlace entre la planta y el almacén automático, capacidad 500 kg."
+    },
+    "documento": {
+      "titulo": "fp_material: Fallo de freno del motor: Elevador vertical 01",
+      "tipo": "FP",
+      "contenido": "Si el elevador no frena correctamente o se detecta deslizamiento en la parada, medir la tensión del freno, el entrehierro y el estado de los contactos. Sustituir la bobina o las zapatas si están desgastadas. No operar el elevador con el freno en mal estado.",
+      "fuente_url": ""
+    },
+    "averia": {
+      "titulo": "El motor no arranca al dar la orden de subida",
+      "descripcion_sintoma": "Al pulsar subir desde el HMI, el elevador no se mueve. No hay alarma visible en pantalla.",
+      "acciones_realizadas": "Se revisaron los finales de carrera y el estado del variador, sin encontrar fallo evidente a primera vista.",
+      "notas_adicionales": "Ocurre siempre que el elevador lleva parado más de una hora.",
+      "prioridad": "A",
+      "estado": "RE"
+    },
+    "caso_resuelto": {
+      "causa_raiz": "El freno del motor no liberaba por una bobina con el aislamiento degradado, que solo fallaba en frío tras un reposo prolongado.",
+      "procedimiento_solucion": "Se sustituyó la bobina del freno y se verificó el entrehierro según especificación del fabricante. Se realizaron 10 ciclos de prueba en frío y en caliente antes de devolver la máquina a producción.",
+      "tiempo_reparacion_horas": "3.00",
+      "lecciones_aprendidas": "Añadir la comprobación del freno en frío al plan de mantenimiento preventivo, no solo en caliente."
+    }
+  },
+  {
+    "maquina": {
+      "nombre": "PLC Línea Principal",
+      "marca": "Siemens",
+      "modelo": "S7-1500",
+      "codigo": "PLC-SIE-001",
+      "categoria": "CTL",
+      "ubicacion": "Armario general de la línea",
+      "manual_url": "",
+      "descripcion": "Controlador principal de la línea: coordina transportadores, variadores y lectores de código."
+    },
+    "documento": {
+      "titulo": "manual_tecnico: Arquitectura general de control de la línea: PLC Línea Principal",
+      "tipo": "MT",
+      "contenido": "El PLC controla transportadores, variadores y lectores, e intercambia datos con el sistema de gestión de almacén mediante una pasarela OPC UA. El programa se organiza en bloques por tramo de línea, con un bloque común de seguridad.",
+      "fuente_url": ""
+    },
+    "averia": {
+      "titulo": "La línea principal se detiene sin alarma visible",
+      "descripcion_sintoma": "La línea se para sola durante la producción, sin que el HMI muestre ninguna alarma activa.",
+      "acciones_realizadas": "Se consultó el búfer de diagnóstico del PLC y se encontraron eventos de seguridad sin confirmar.",
+      "notas_adicionales": "Coincide con el turno de limpieza de la zona de puertas de acceso.",
+      "prioridad": "A",
+      "estado": "RE"
+    },
+    "caso_resuelto": {
+      "causa_raiz": "Una puerta de acceso quedaba mal cerrada tras la limpieza, lo que abría la cadena de seguridad y detenía la línea sin generar una alarma visible en el HMI, solo en el búfer de diagnóstico.",
+      "procedimiento_solucion": "Se rearmó la cadena de seguridad y se verificó el cierre correcto de todas las puertas del tramo. Se configuró una alarma visible en el HMI específica para la apertura de puertas de seguridad.",
+      "tiempo_reparacion_horas": "1.50",
+      "lecciones_aprendidas": "Toda apertura de la cadena de seguridad debe mostrar una alarma clara en el HMI, no solo quedar registrada en el búfer de diagnóstico."
+    }
+  },
+  {
+    "maquina": {
+      "nombre": "Sistema de visión artificial",
+      "marca": "Keyence",
+      "modelo": "CV-X",
+      "codigo": "VIS-KEY-001",
+      "categoria": "SEN",
+      "ubicacion": "Línea de inspección final",
+      "manual_url": "",
+      "descripcion": "Cámara de inspección que valida el embalaje final antes de la expedición."
+    },
+    "documento": {
+      "titulo": "fp_material: Lecturas incorrectas del sistema de visión artificial: Sistema de visión artificial",
+      "tipo": "FP",
+      "contenido": "Si la cámara devuelve resultados erróneos, comprobar limpieza de la lente, iluminación, enfoque y que el trabajo cargado coincide con el producto. Reentrenar la herramienta si cambió el embalaje.",
+      "fuente_url": ""
+    },
+    "averia": {
+      "titulo": "Lecturas incorrectas tras cambio de embalaje",
+      "descripcion_sintoma": "La tasa de rechazos subió al 30% justo después de que el producto cambiara de embalaje.",
+      "acciones_realizadas": "Se revisó la limpieza de la lente y la iluminación, descartando un problema puramente óptico.",
+      "notas_adicionales": "El embalaje nuevo tiene un acabado más brillante que el anterior.",
+      "prioridad": "M",
+      "estado": "RE"
+    },
+    "caso_resuelto": {
+      "causa_raiz": "La herramienta de inspección seguía entrenada con el embalaje anterior; el nuevo acabado brillante generaba falsos rechazos por reflejos no contemplados.",
+      "procedimiento_solucion": "Se reentrenó la herramienta de inspección con muestras del nuevo embalaje en distintas condiciones de luz, y se ajustó el filtro de reflejos.",
+      "tiempo_reparacion_horas": "5.00",
+      "lecciones_aprendidas": "Avisar a mantenimiento con antelación ante cualquier cambio de embalaje que afecte al acabado visual del producto."
+    }
+  },
+  {
+    "maquina": {
+      "nombre": "Compresor instalación neumática",
+      "marca": "Atlas Copco",
+      "modelo": "GA 30",
+      "codigo": "COM-ATL-001",
+      "categoria": "NEU",
+      "ubicacion": "Sala de compresores",
+      "manual_url": "",
+      "descripcion": "Compresor de tornillo que alimenta la red neumática general de la planta."
+    },
+    "documento": {
+      "titulo": "manual_tecnico: Parámetros de funcionamiento y presiones de consigna: Compresor instalación neumática",
+      "tipo": "MT",
+      "contenido": "Presión de carga 7,5 bar, descarga 8,5 bar, presión máxima de seguridad 10 bar. Temperatura normal de trabajo entre 70 y 90 grados.",
+      "fuente_url": ""
+    },
+    "averia": {
+      "titulo": "Caída de presión en la red neumática",
+      "descripcion_sintoma": "La presión de red baja de 6 bar con el compresor en marcha, afectando a varias estaciones de trabajo.",
+      "acciones_realizadas": "Se revisó el filtro de aspiración y no se encontraron fugas evidentes en los acoplamientos cercanos.",
+      "notas_adicionales": "El problema aparece sobre todo a primera hora de la mañana.",
+      "prioridad": "A",
+      "estado": "EC"
+    },
+    "caso_resuelto": null
+  },
+  {
+    "maquina": {
+      "nombre": "Robot paletizador Línea 1",
+      "marca": "Kuka",
+      "modelo": "KR 120",
+      "codigo": "ROB-KUK-002",
+      "categoria": "ROB",
+      "ubicacion": "Fin de línea 1",
+      "manual_url": "",
+      "descripcion": "Robot paletizador que forma los palets de producto terminado al final de la línea 1."
+    },
+    "documento": {
+      "titulo": "fp_material: La pinza no sujeta correctamente: Robot paletizador Línea 1",
+      "tipo": "FP",
+      "contenido": "Si la pinza no sujeta correctamente, revisar la presión de vacío o neumática, las ventosas y las electroválvulas. Sustituir los elementos desgastados.",
+      "fuente_url": ""
+    },
+    "averia": {
+      "titulo": "La pinza no sujeta correctamente",
+      "descripcion_sintoma": "Caen cajas durante el movimiento de paletizado, sobre todo en las posiciones más altas del palet.",
+      "acciones_realizadas": "Se revisó la presión de vacío del sistema, que estaba dentro de los valores normales.",
+      "notas_adicionales": "Las ventosas llevan más de un año sin sustituirse.",
+      "prioridad": "A",
+      "estado": "RE"
+    },
+    "caso_resuelto": {
+      "causa_raiz": "Las ventosas de la pinza estaban desgastadas y perdían estanqueidad al alcanzar las posiciones más altas del palet, donde el ángulo de agarre es más exigente.",
+      "procedimiento_solucion": "Se sustituyeron todas las ventosas de la pinza y se verificó la estanqueidad con un ciclo completo de paletizado a carga máxima.",
+      "tiempo_reparacion_horas": "4.00",
+      "lecciones_aprendidas": "Incluir la sustitución preventiva de ventosas en el plan de mantenimiento anual, no esperar al fallo."
+    }
+  }
+]
